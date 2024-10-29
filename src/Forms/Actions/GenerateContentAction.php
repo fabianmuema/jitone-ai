@@ -30,7 +30,13 @@ class GenerateContentAction
                 Textarea::make('ai_prompt')
                     ->label('Enter your prompt')
                     ->required()
-                    ->helperText('For best results, please enter a valid prompt. The limit is 5 prompts per day. You have '.(5 - SmsPrompt::where('tenant', \tenant('id'))->whereDate('created_at', now())->count()).' prompts left today. All prompts are stored for future reference.')
+                    ->helperText(
+                        'For best results, please enter a valid prompt. The limit is 5 prompts per day. You have '.(5 - SmsPrompt::where(
+                                'tenant',
+                                \tenant('id'),
+                            )->whereDate('created_at', now())->count(
+                            )).' prompts left today. All prompts are stored for future reference.',
+                    )
                     ->placeholder(
                         fn($get) => $get(
                             'ai_prompt_placeholder',
@@ -57,12 +63,13 @@ class GenerateContentAction
                     ->whereDate('created_at', now())
                     ->count();
 
-                if ($prompts > 5) {
+                if ($prompts >= 5) {
                     Notification::make()
                         ->warning()
                         ->title('Limit Exceeded')
                         ->body('You have exceeded the limit of 5 prompts today. Please try again tomorrow.')
                         ->send();
+
                     return;
                 }
 
