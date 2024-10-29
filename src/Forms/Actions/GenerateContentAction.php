@@ -128,7 +128,7 @@ class GenerateContentAction
                         ->send();
                 }
             })
-            ->modalHeading('Generate Content with AI')
+            ->modalHeading('Generate SMS with Centipid AI')
             ->modalButton('Generate');
     }
 
