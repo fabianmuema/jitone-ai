@@ -73,14 +73,14 @@ class GenerateContentAction
                     return;
                 }
 
-                if (!env('OPENAI_API_KEY')) {
-                    Notification::make()
-                        ->warning()
-                        ->title('OpenAI API Key Missing')
-                        ->body('Please add your OpenAI API Key to the .env file before proceeding.')
-                        ->send();
-                    return;
-                }
+                // if (!env('OPENAI_API_KEY')) {
+                //     Notification::make()
+                //         ->warning()
+                //         ->title('OpenAI API Key Missing')
+                //         ->body('Please add your OpenAI API Key to the .env file before proceeding.')
+                //         ->send();
+                //     return;
+                // }
 
                 try {
                     $currentContent = $field->getState();
